@@ -1,18 +1,9 @@
-# Use a Node base image
-FROM node:20
+# Use Nginx to serve the static HTML file
+FROM nginx:alpine
 
-# Create app directory
-WORKDIR /usr/src/app
+# Copy your index.html into the Nginx server folder
+# This folder is where Nginx looks for files to show to the world
+COPY index.html /usr/share/nginx/html/index.html
 
-# Install app dependencies
-COPY package*.json ./
-RUN npm install
-
-# Bundle app source
-COPY . .
-
-# Your app's port (change 3000 to whatever your app uses)
-EXPOSE 3000
-
-# Start the app
-CMD [ "npm", "start" ]
+# Expose port 80 (the standard for web traffic)
+EXPOSE 80
